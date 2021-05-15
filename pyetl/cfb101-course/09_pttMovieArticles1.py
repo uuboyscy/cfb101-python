@@ -1,5 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+import os
+
+if not os.path.exists('./pttMovie'):
+    os.mkdir('./pttMovie')
 
 url = 'https://www.ptt.cc/bbs/movie/index.html'
 
@@ -23,6 +27,14 @@ for i in range(0, 5):
             soupArticle = BeautifulSoup(resArticle.text, 'html.parser')
             # Get article content
             articleContent = soupArticle.select('div[id="main-content"]')[0].text.split('※ 發信站')[0]
+            try:
+                with open('./pttMovie/{}.txt'.format(title), 'w', encoding='utf-8') as f:
+                    f.write(articleContent)
+            except FileNotFoundError as e:
+                with open('./pttMovie/{}.txt'.format(title.replace('/', '-')), 'w', encoding='utf-8') as f:
+                    f.write(articleContent)
+            except OSError as e:
+                pass
 
             print(title)
             print(urlArticle)
