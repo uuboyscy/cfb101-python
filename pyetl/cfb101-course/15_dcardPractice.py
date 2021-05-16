@@ -3,6 +3,7 @@ import json
 import os
 from urllib import request
 import ssl
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 if not os.path.exists('./dcardPhoto'):
@@ -15,7 +16,8 @@ headers = {
 
 res = requests.get(url, headers=headers)
 # print(res.text)
-jsonData = json.loads(res.text)  # list
+# jsonData = json.loads(res.text) # list
+jsonData = res.json()
 
 for articleObj in jsonData:
     title = articleObj['title']
@@ -26,6 +28,10 @@ for articleObj in jsonData:
         imgUrl = img['url']
         # Save images
         #         request.urlretrieve(imgUrl, './dcardPhoto/{}.{}'.format(title, imgUrl.split('.')[-1]))
-        request.urlretrieve(imgUrl, './dcardPhoto/{}_{}'.format(title, imgUrl.split('/')[-1]))
+        #         request.urlretrieve(imgUrl, './dcardPhoto/{}_{}'.format(title, imgUrl.split('/')[-1]))
+        imgRes = requests.get(imgUrl, headers=headers)
+        imgContent = imgRes.content
+        with open('./dcardPhoto/{}_{}'.format(title, imgUrl.split('/')[-1]), 'wb') as f:
+            f.write(imgContent)
         print('\t', imgUrl)
     print('==========')
