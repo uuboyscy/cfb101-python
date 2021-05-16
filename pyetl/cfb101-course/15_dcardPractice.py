@@ -8,5 +8,14 @@ headers = {
 
 res = requests.get(url, headers=headers)
 # print(res.text)
-jsonData = json.loads(res.text) # list
+jsonData = json.loads(res.text)  # list
 
+for articleObj in jsonData:
+    title = articleObj['title']
+    articleUrl = 'https://www.dcard.tw/f/photography/p/' + str(articleObj['id'])
+    print(title)
+    print(articleUrl)
+    for img in articleObj['mediaMeta']:
+        imgUrl = img['url']
+        print('\t', imgUrl)
+    print('==========')
