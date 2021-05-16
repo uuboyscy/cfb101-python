@@ -1,5 +1,12 @@
 import requests
 import json
+import os
+from urllib import request
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+if not os.path.exists('./dcardPhoto'):
+    os.mkdir('./dcardPhoto')
 
 url = 'https://www.dcard.tw/service/api/v2/forums/photography/posts?limit=30&before=235903762'
 headers = {
@@ -17,5 +24,8 @@ for articleObj in jsonData:
     print(articleUrl)
     for img in articleObj['mediaMeta']:
         imgUrl = img['url']
+        # Save images
+        #         request.urlretrieve(imgUrl, './dcardPhoto/{}.{}'.format(title, imgUrl.split('.')[-1]))
+        request.urlretrieve(imgUrl, './dcardPhoto/{}_{}'.format(title, imgUrl.split('/')[-1]))
         print('\t', imgUrl)
     print('==========')
