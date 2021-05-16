@@ -11,17 +11,21 @@ headers = {
 data = {
     'action': 'fm_ajax_load_more',
     'nonce': 'ab5d085223',
-    'page': 15
+    'page': 1
 }
 
-res = requests.post(url, headers=headers, data=data)
+for p in range(0,5):
+    res = requests.post(url, headers=headers, data=data)
 
-jsonData = res.json()
-htmlStr = jsonData['data']
-# print(jsonData['data'])
-soup = BeautifulSoup(htmlStr, 'html.parser')
+    jsonData = res.json()
+    htmlStr = jsonData['data']
+    # print(jsonData['data'])
+    soup = BeautifulSoup(htmlStr, 'html.parser')
 
-# print(soup.select('h4 a'))
-for t in soup.select('h4 a'):
-    print(t['href'])
-    print(t.text)
+    # print(soup.select('h4 a'))
+    for t in soup.select('h4 a'):
+        print(t.text)
+        print(t['href'])
+        print('==========')
+
+    data['page'] += 1
