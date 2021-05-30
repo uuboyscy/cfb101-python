@@ -1,4 +1,5 @@
 import random
+import pprint
 
 def poker(player):
     PLAYER = player
@@ -23,7 +24,7 @@ def poker(player):
 
 if __name__ == '__main__':
     player_cards = poker(5)
-    print(player_cards)
+    pprint.pprint(player_cards)
     # Order and print
     # for i in player_cards:
     #     player_cards[i].sort(key=lambda x: x.split('_')[0])

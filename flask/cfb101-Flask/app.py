@@ -1,8 +1,12 @@
 from flask import Flask, request, jsonify, render_template
 import poker as p
 import series as s
+from model import model
+from test_controller import test_controller
 
 app = Flask(__name__, static_url_path='/static2', static_folder='./static2')
+app.register_blueprint(test_controller, url_prefix='/testNamespace')
+
 
 @app.route('/')
 def index():
@@ -83,6 +87,24 @@ def hello_post2():
     return render_template('hello_post.html',
                            method=method,
                            username=username)
+
+@app.route('/poker', methods=['GET', 'POST'])
+def poker():
+    request_method = request.method
+    players = 0
+    cards = dict()
+    if request_method == 'POST':
+        players = int(request.form.get('players'))
+        cards = p.poker(players)
+    return render_template('poker.html', request_method=request_method,
+                                         cards=cards)
+
+@app.route('/show_staff')
+def hello_google():
+    staff_data = model.getStaff()
+    column = ['ID', 'Name', 'DeptId', 'Age', 'Gender', 'Salary']
+    return render_template('show_staff.html', staff_data=staff_data,
+                                              column=column)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)
