@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import poker as p
 import series as s
 
@@ -25,7 +25,7 @@ def greet(name):
 def hello_get():
     name = request.args.get('name')
     age = request.args.get('age')
-    outStr = '<h1>Hello {} , you are {} years old.<h1>'.format(name, age)
+    outStr = '<h1>Hello {} , you are {} years old.</h1>'.format(name, age)
     return outStr # HTML string
 
 @app.route('/add/<x>/<y>')
@@ -66,6 +66,23 @@ def seriesNumber():
     n = int(request.args.get('n'))
     result = str(s.Func(n))
     return result
+
+@app.route('/hello_get2')
+def hello_get2():
+    name = request.args.get('name')
+    age = request.args.get('age')
+    # render_template return HTML string
+    return render_template('hello_get.html',
+                            name=name,
+                            age=age)
+
+@app.route('/hello_post2')
+def hello_post2():
+    method = request.method
+    username = request.form.get('username') if method == 'POST' else ''
+    return render_template('hello_post.html',
+                           method=method,
+                           username=username)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

@@ -12,11 +12,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1tEbK3Qgsbq5DQJfxtH3eGYzuN1" />
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RecentsManager">
@@ -36,7 +38,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.series">
+  <component name="RunManager" selected="Python.app">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="cfb101-Flask" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -102,9 +104,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.app" />
         <item itemvalue="Python.series" />
         <item itemvalue="Python.poker" />
-        <item itemvalue="Python.app" />
       </list>
     </recent_temporary>
   </component>
